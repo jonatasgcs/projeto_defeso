@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Denúncia de Pesca Ilegal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+        /* Define a fonte Inter para todo o corpo do documento e cores base */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #F8FAFC; /* Um cinza muito claro para o fundo */
+            color: #334155; /* Cor de texto padrão, um cinza escuro */
+        }
+
+        /* Estilo para o container principal do conteúdo */
+        .content-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2.5rem; /* Aumentado o padding */
+            background-color: #FFFFFF;
+            border-radius: 1.25rem; /* Bordas mais arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra mais pronunciada e suave */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transição para hover */
+        }
+
+        .content-container:hover {
+            transform: translateY(-5px); /* Leve levantamento no hover */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Sombra maior no hover */
+        }
+
+        .content-container h2 {
+            font-size: 2.8rem; /* Título maior */
+            margin-bottom: 1.5rem;
+            color: #1E293B;
+            font-weight: 800; /* Mais negrito */
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Sombra de texto sutil */
+        }
+
+        .content-container h3 {
+            font-size: 2rem; /* Subtítulo maior */
+            margin-top: 2.5rem; /* Mais espaçamento */
+            margin-bottom: 1rem;
+            color: #1E293B;
+            font-weight: 700; /* Mais negrito */
+            border-bottom: 2px solid #E2E8F0; /* Linha de separação sutil */
+            padding-bottom: 0.5rem;
+        }
+
+        .content-container p {
+            margin-bottom: 1rem;
+            color: #475569;
+            line-height: 1.7; /* Melhorar legibilidade */
+        }
+
+        .content-container ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #475569;
+            list-style: disc; /* Garante que as listas tenham marcadores */
+        }
+
+        .content-container li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6; /* Melhorar legibilidade */
+        }
+
+        /* Estilo do formulário de denúncia */
+        .formulario-denuncia {
+            background-color: #F0F9FF; /* Fundo mais claro para o formulário */
+            padding: 2.5rem; /* Aumentado padding */
+            border-radius: 1.25rem; /* Bordas mais arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra mais visível */
+            margin-top: 2.5rem; /* Mais espaçamento */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transição para hover */
+        }
+
+        .formulario-denuncia:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .formulario-denuncia h3 {
+            margin-bottom: 1.5rem;
+            color: #1E293B;
+            font-size: 2.2rem; /* Título maior para o formulário */
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            border-bottom: 2px solid #E2E8F0; /* Linha de separação sutil */
+            padding-bottom: 0.5rem;
+        }
+
+        .formulario-denuncia label {
+            display: block;
+            margin: 0.8rem 0 0.3rem;
+            font-weight: 600; /* Mais negrito */
+            color: #334155;
+        }
+
+        .formulario-denuncia input,
+        .formulario-denuncia textarea {
+            width: 100%;
+            padding: 0.75rem; /* Um pouco mais de padding */
+            border: 1px solid #CBD5E1; /* Borda mais suave */
+            border-radius: 0.5rem; /* Bordas arredondadas */
+            transition: all 0.2s ease-in-out;
+        }
+
+        .formulario-denuncia input:focus,
+        .formulario-denuncia textarea:focus {
+            border-color: #3B82F6; /* Azul vibrante no foco */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* Sombra de foco */
+            outline: none;
+        }
+
+        .formulario-denuncia button {
+            margin-top: 1.5rem; /* Mais espaçamento */
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, #3B82F6, #2563EB); /* Gradiente para o botão */
+            color: white;
+            border: none;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .formulario-denuncia button:hover {
+            background: linear-gradient(45deg, #2563EB, #1D4ED8); /* Gradiente mais escuro no hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo do botão de administrador */
+        .admin-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 2rem 0 0;
+        }
+
+        .admin-button {
+            background-color: #1E293B; /* Azul escuro */
+            color: #fff;
+            padding: 0.6rem 1.4rem;
+            border: none;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-button:hover {
+            background-color: #0F172A; /* Mais escuro no hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Estilo para a notificação popup (FORMATO CHAMATIVO) */
+        .popup-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #22C55E; /* Verde vibrante para sucesso */
+            color: white; /* Texto branco para contrastar */
+            padding: 1.2rem 2.5rem; /* Um pouco mais de padding */
+            border-radius: 8px; /* Bordas mais arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+            z-index: 1000;
+            opacity: 0; /* Inicialmente invisível */
+            transition: top 0.3s ease-out, opacity 0.3s ease-in-out; /* Transição suave para aparecer/desaparecer */
+            top: -50px; /* Começa um pouco acima */
+            font-weight: 600; /* Texto mais forte */
+        }
+        .popup-notification.show {
+            top: 20px; /* Desce para a posição visível */
+            opacity: 1;
+        }
+        .popup-notification.error {
+            background-color: #EF4444; /* Vermelho vibrante para erro */
+        }
+
+        /* Estilo para os itens de denúncia (IBAMA, ICMBio, MPF) */
+        .denuncia-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .denuncia-item {
+            padding: 1.5rem;
+            border: 1px solid #E2E8F0; /* Borda suave */
+            border-radius: 1rem; /* Bordas arredondadas */
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .denuncia-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .denuncia-item h4 {
+            font-size: 1.4rem;
+            color: #3B82F6; /* Azul vibrante */
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .denuncia-item h4 a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .denuncia-item h4 a:hover {
+            color: #2563EB;
+        }
+
+        .denuncia-item p {
+            font-size: 1rem;
+            color: #475569;
+            margin-top: 0.5rem;
+        }
+
+        /* Estilo para os atalhos (consistente com index.html) */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #E0F2F7; /* Fundo azul claro para os atalhos */
+            padding: 2rem 1rem;
+            gap: 1rem;
+            margin-top: 2rem;
+            border-radius: 1rem; /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .atalho a {
+            background-color: #FFFFFF;
+            color: #3B82F6; /* Azul vibrante */
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .atalho a:hover {
+            background-color: #3B82F6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .content-container {
+                margin: 1.5rem auto;
+                padding: 1.5rem;
+            }
+            .content-container h2 {
+                font-size: 2rem;
+            }
+            .content-container h3 {
+                font-size: 1.5rem;
+            }
+            .formulario-denuncia {
+                padding: 1.5rem;
+            }
+            .formulario-denuncia h3 {
+                font-size: 1.8rem;
+            }
+            .admin-button-container {
+                margin: 1rem 1rem 0 0;
+            }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="denuncia-page">
+
+<div id="popup-notification-container" class="popup-notification">
+</div>
+
+<nav class="bg-gray-800 text-white py-4 shadow-lg">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
+        <h1 class="text-2xl font-bold text-blue-300">Período de Defeso</h1>
+        <ul class="nav-links flex flex-col md:flex-row gap-4 mt-4 md:mt-0">
+            <li><a href="index.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Home</a></li>
+            <li><a href="regras.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Regras</a></li>
+            <li><a href="denuncia.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Denúncia</a></li>
+            <li><a href="direitos.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+            <li><a href="educacao.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Educação</a></li>
+            <li><a href="contato.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Contato</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="admin-button-container">
+    <a href="admin_denuncia.php" class="admin-button"><i class="bi bi-shield-lock-fill"></i> Área do Administrador</a>
+</div>
+
+<main class="content-container">
+    <h2>Como Denunciar Pesca Ilegal</h2>
+    <p class="text-center">
+        Se você tem informações sobre pesca ilegal durante o período de defeso, é essencial denunciá-las para proteger nossos recursos aquáticos. Sua colaboração é fundamental para a sustentabilidade.
+    </p>
+
+    <section class="denuncia-container">
+        <article class="denuncia-item">
+            <h4><a href="https://www.ibama.gov.br/" target="_blank">IBAMA - Instituto Brasileiro do Meio Ambiente</a></h4>
+            <p>O IBAMA é o órgão federal responsável por fiscalizar e combater a pesca ilegal em todo o território nacional. Utilize seus canais de denúncia para reportar infrações.</p>
+        </article>
+
+        <article class="denuncia-item">
+            <h4><a href="https://www.icmbio.gov.br/" target="_blank">ICMBio - Instituto Chico Mendes de Conservação da Biodiversidade</a></h4>
+            <p>O ICMBio é responsável pela gestão das Unidades de Conservação federais e também recebe denúncias relacionadas a crimes ambientais nessas áreas.</p>
+        </article>
+
+        <article class="denuncia-item">
+            <h4><a href="https://www.mpf.mp.br/" target="_blank">MPF - Ministério Público Federal</a></h4>
+            <p>O Ministério Público Federal pode ser acionado em casos de crimes ambientais de maior gravidade ou que envolvam interesses da União.</p>
+        </article>
+    </section>
+
+    <h3 class="text-center">Como Fazer uma Denúncia Eficiente</h3>
+    <ul class="list-disc pl-6">
+        <li><strong>Localização:</strong> Informe o local exato da atividade suspeita (coordenadas geográficas, nome do rio/lago/praia, município, estado).</li>
+        <li><strong>Data e Hora:</strong> Indique quando a atividade ocorreu ou está ocorrendo, com a maior precisão possível.</li>
+        <li><strong>Descrição:</strong> Detalhe o tipo de pesca ilegal observada (ex: uso de redes proibidas, captura de espécies em defeso, pesca em área proibida).</li>
+        <li><strong>Provas:</strong> Fotos ou vídeos são extremamente úteis para comprovar a denúncia. Anexe-os se possível.</li>
+        <li><strong>Identificação:</strong> Se souber, informe quem são os responsáveis pela infração (nomes, características, placas de veículos/embarcações).</li>
+    </ul>
+
+    <h3 class="text-center mt-8">Outros Canais de Denúncia</h3>
+    <ul class="list-disc pl-6">
+        <li><a href="https://www.denuncie.icmbio.gov.br/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium transition duration-300 ease-in-out">Sistema de Denúncia ICMBio</a></li>
+        <li><a href="https://www.ibama.gov.br/denuncias" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium transition duration-300 ease-in-out">Sistema de Denúncia IBAMA</a></li>
+    </ul>
+
+    <section class="formulario-denuncia">
+        <h3>Faça sua Denúncia</h3>
+        <form action="processar_denuncia.php" method="POST" enctype="multipart/form-data">
+            <label for="nome">Nome (opcional):</label>
+            <input type="text" name="nome" id="nome" />
+
+            <label for="local">Local da Ocorrência:</label>
+            <input type="text" name="local" id="local" required />
+
+            <label for="data">Data da Ocorrência:</label>
+            <input type="date" name="data" id="data" required />
+
+            <label for="descricao">Descrição da Atividade:</label>
+            <textarea name="descricao" id="descricao" rows="4" required></textarea>
+
+            <label for="arquivo">Enviar Provas (imagem ou vídeo):</label>
+            <input type="file" name="arquivo" id="arquivo" accept="image/*,video/*" />
+
+            <button type="submit">Enviar Denúncia</button>
+        </form>
+    </section>
+</main>
+
+<section class="atalhos">
+    <div class="atalho">
+        <a href="simulador.html"><i class="bi bi-clipboard-plus"></i> Simulador de Inscrição</a>
+    </div>
+    <div class="atalho">
+        <a href="regras.html"><i class="bi bi-journal-text"></i> Regras do Defeso</a>
+    </div>
+    <div class="atalho">
+        <a href="contato.html"><i class="bi bi-envelope"></i> Órgãos Responsáveis</a>
+    </div>
+</section>
+
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const envioStatus = urlParams.get('envio');
+        const notificationContainer = document.getElementById('popup-notification-container');
+
+        if (envioStatus === 'sucesso') {
+            notificationContainer.textContent = 'Sua denúncia foi enviada com sucesso!';
+            notificationContainer.className = 'popup-notification show';
+            setTimeout(() => {
+                notificationContainer.classList.remove('show');
+                setTimeout(() => {
+                    notificationContainer.textContent = '';
+                }, 500);
+            }, 3000);
+            // Limpa os parâmetros da URL para que o popup não apareça novamente ao recarregar
+            history.replaceState({}, document.title, window.location.pathname);
+        } else if (envioStatus === 'erro') {
+            notificationContainer.textContent = 'Houve um erro ao enviar a denúncia. Por favor, tente novamente.';
+            notificationContainer.className = 'popup-notification show error';
+            setTimeout(() => {
+                notificationContainer.classList.remove('show');
+                setTimeout(() => {
+                    notificationContainer.textContent = '';
+                }, 500);
+            }, 5000);
+            // Limpa os parâmetros da URL para que o popup não apareça novamente ao recarregar
+            history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
+</script>
+</body>
+</html>
