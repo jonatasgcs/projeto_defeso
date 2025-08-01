@@ -1,5 +1,3 @@
-# projeto_defeso
-
 # 🌊 Site Educativo sobre o Período de Defeso
 
 Este site foi desenvolvido como parte de um projeto interdisciplinar para informar a população sobre o **Período de Defeso**, com foco em **educação ambiental**, **regras legais**, **direitos do pescador** e **denúncias de pesca ilegal**.
@@ -22,6 +20,7 @@ Este site foi desenvolvido como parte de um projeto interdisciplinar para inform
 | `denuncia.html`    | Página para denúncias, com formulário direto e links oficiais.            |
 | `direitos.html`    | Detalha os direitos do pescador e verifica elegibilidade ao auxílio.      |
 | `educacao.html`    | Página educativa com conteúdo ambiental e espaço para envio de sugestões. |
+| `contato.html`     | Página com contatos de órgãos responsáveis e formulário de envio.         |
 
 ## 🗂️ Funcionalidades com PHP
 
@@ -59,6 +58,7 @@ Nome do banco: `site_defeso`
 | data_envio   | TIMESTAMP    |
 
 
+
 ## ⚙️ Como Executar Localmente (XAMPP)
 
 1. Baixe e instale o [XAMPP](https://www.apachefriends.org/index.html)
@@ -68,6 +68,7 @@ Nome do banco: `site_defeso`
 4. Acesse via navegador:  
    `http://localhost/site-defeso/`
 5. Crie o banco `site_defeso` via phpMyAdmin
+6. Importe ou crie manualmente as tabelas `denuncias` e `sugestoes`
 
 ## 🔒 Observações sobre a LGPD
 
@@ -80,5 +81,5 @@ Informar, conscientizar e ajudar no cumprimento da legislação ambiental, com r
 ---
 
 Desenvolvido por: **[Jonatas Gabriel (Desenvolvedor – Trabalho em equipe)]**  
-Projeto Acadêmico | Universidade CEUMA  
+Projeto Acadêmico em equipe | Universidade CEUMA  
 Ano: 2025
