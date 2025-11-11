@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Direitos do Pescador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+        /* Define a fonte Inter para todo o corpo do documento e cores base */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #F8FAFC; /* Um cinza muito claro para o fundo */
+            color: #334155; /* Cor de texto padrão, um cinza escuro */
+        }
+
+        /* Estilo para o container principal do conteúdo */
+        .content-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2.5rem; /* Aumentado o padding */
+            background-color: #FFFFFF;
+            border-radius: 1.25rem; /* Bordas mais arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra mais pronunciada e suave */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transição para hover */
+        }
+
+        .content-container:hover {
+            transform: translateY(-5px); /* Leve levantamento no hover */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Sombra maior no hover */
+        }
+
+        .content-container h2 {
+            font-size: 2.8rem; /* Título maior */
+            margin-bottom: 1.5rem;
+            color: #1E293B;
+            font-weight: 800; /* Mais negrito */
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Sombra de texto sutil */
+        }
+
+        .content-container h3 {
+            font-size: 2rem; /* Subtítulo maior */
+            margin-top: 2.5rem; /* Mais espaçamento */
+            margin-bottom: 1rem;
+            color: #1E293B;
+            font-weight: 700; /* Mais negrito */
+            border-bottom: 2px solid #E2E8F0; /* Linha de separação sutil */
+            padding-bottom: 0.5rem;
+        }
+
+        .content-container p {
+            margin-bottom: 1rem;
+            color: #475569;
+            line-height: 1.7; /* Melhorar legibilidade */
+        }
+
+        .content-container ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #475569;
+            list-style: disc; /* Garante que as listas tenham marcadores */
+        }
+
+        .content-container li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Estilo do botão de administrador */
+        .admin-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 2rem 0 0;
+        }
+
+        .admin-button {
+            background-color: #1E293B; /* Azul escuro */
+            color: #fff;
+            padding: 0.6rem 1.4rem;
+            border: none;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-button:hover {
+            background-color: #0F172A; /* Mais escuro no hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Estilo para a notificação popup (FORMATO CHAMATIVO) */
+        .popup-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #22C55E; /* Verde vibrante para sucesso */
+            color: white; /* Texto branco para contrastar */
+            padding: 1.2rem 2.5rem; /* Um pouco mais de padding */
+            border-radius: 8px; /* Bordas mais arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+            z-index: 1000;
+            opacity: 0; /* Inicialmente invisível */
+            transition: top 0.3s ease-out, opacity 0.3s ease-in-out; /* Transição suave para aparecer/desaparecer */
+            top: -50px; /* Começa um pouco acima */
+            font-weight: 600; /* Texto mais forte */
+        }
+        .popup-notification.show {
+            top: 20px; /* Desce para a posição visível */
+            opacity: 1;
+        }
+        .popup-notification.error {
+            background-color: #EF4444; /* Vermelho vibrante para erro */
+        }
+
+        /* Estilo para o container do vídeo */
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 2.5rem auto; /* Mais espaçamento */
+            text-align: center;
+            max-width: 900px;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #E0F2F7 0%, #D1EEF5 100%); /* Gradiente suave */
+            border-radius: 1.25rem; /* Bordas mais arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra atraente */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container h3 {
+            font-size: 2.2rem; /* Título maior */
+            color: #0F172A; /* Azul escuro para o título */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Sombra de texto sutil */
+        }
+
+        .video-container iframe {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            border-radius: 1rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .video-container iframe:hover {
+            transform: scale(1.01);
+        }
+
+        /* Estilo para as curiosidades */
+        .curiosidades {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #F0F9FF 0%, #E6F7FF 100%); /* Gradiente mais suave */
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            margin: 2.5rem auto;
+            max-width: 900px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .curiosidades:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .curiosidades h3 {
+            font-size: 2.2rem;
+            color: #0F172A;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .curiosidades ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .curiosidades ul li {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        .curiosidades ul li::before {
+            content: '\2022'; /* Bullet point Unicode */
+            color: #3B82F6; /* Azul vibrante para o bullet */
+            font-size: 1.5rem;
+            line-height: 1;
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+        }
+
+        /* Estilo para o FAQ (details/summary) */
+        .faq {
+            padding: 2.5rem;
+            margin: 2.5rem auto;
+            max-width: 900px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%); /* Gradiente sutil */
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .faq:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .faq h3 {
+            margin-bottom: 1.5rem;
+            color: #1E293B;
+            font-size: 2.2rem; /* Título maior */
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .faq details {
+            margin-bottom: 1rem;
+            background-color: #F8FAFC; /* Fundo suave para detalhes */
+            padding: 1rem 1.5rem; /* Ajustado padding */
+            border-radius: 0.75rem;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .faq details[open] {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            background-color: #EBF8FF; /* Fundo mais claro quando aberto */
+        }
+
+        .faq summary {
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            position: relative;
+            list-style: none;
+            padding-right: 2rem;
+            font-size: 1.1rem; /* Texto maior */
+        }
+
+        .faq summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq summary::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            transition: transform 0.2s ease-in-out;
+            color: #3B82F6; /* Cor do ícone */
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .faq details[open] summary::after {
+            content: '-';
+            transform: rotate(0deg);
+        }
+
+        .faq summary:hover {
+            color: #3B82F6;
+        }
+
+        .faq details p {
+            padding: 0.5rem 0 0.5rem 0; /* Ajustado padding */
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* Estilo para o formulário do simulador */
+        .content-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem; /* Adicionado padding para o formulário */
+            background-color: #F0F9FF; /* Fundo suave */
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-container form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #334155;
+        }
+
+        .content-container form input[type="text"],
+        .content-container form input[type="email"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #CBD5E1;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .content-container form input[type="text"]:focus,
+        .content-container form input[type="email"]:focus {
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            outline: none;
+        }
+
+        .content-container form input[type="radio"] {
+            /* Tailwind form-radio class for styling */
+            @apply form-radio text-blue-600;
+        }
+
+        .content-container form button[type="submit"] {
+            background: linear-gradient(45deg, #3B82F6, #2563EB);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 1.5rem;
+        }
+
+        .content-container form button[type="submit"]:hover {
+            background: linear-gradient(45deg, #2563EB, #1D4ED8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo para o container de fontes */
+        .fontes-container {
+            background: linear-gradient(135deg, #EBF8FF 0%, #DDEEFF 100%); /* Gradiente suave */
+            padding: 2.5rem;
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            margin: 2.5rem auto;
+            max-width: 900px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .fontes-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .fontes-container h4 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .fontes-container a {
+            font-size: 1.1rem;
+            color: #3B82F6;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0.5rem 0;
+            display: block; /* Cada link em uma nova linha */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .fontes-container a:hover {
+            color: #2563EB;
+            transform: translateX(5px);
+        }
+
+        /* Estilo para os atalhos (consistente com index.html) */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #E0F2F7; /* Fundo azul claro para os atalhos */
+            padding: 2rem 1rem;
+            gap: 1rem;
+            margin-top: 2rem;
+            border-radius: 1rem; /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .atalho a {
+            background-color: #FFFFFF;
+            color: #3B82F6; /* Azul vibrante */
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .atalho a:hover {
+            background-color: #3B82F6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .content-container {
+                margin: 1.5rem auto;
+                padding: 1.5rem;
+            }
+            .content-container h2 {
+                font-size: 2rem;
+            }
+            .content-container h3 {
+                font-size: 1.5rem;
+            }
+            .admin-button-container {
+                margin: 1rem 1rem 0 0;
+            }
+            .video-container {
+                padding: 1.5rem;
+            }
+            .video-container h3 {
+                font-size: 1.6rem;
+            }
+            .video-container iframe {
+                height: 250px;
+            }
+            .curiosidades {
+                padding: 1.5rem;
+            }
+            .curiosidades h3 {
+                font-size: 1.6rem;
+            }
+            .curiosidades ul li {
+                font-size: 1rem;
+            }
+            .faq {
+                padding: 1.5rem;
+            }
+            .faq h3 {
+                font-size: 1.6rem;
+            }
+            .faq summary {
+                font-size: 1rem;
+            }
+            .fontes-container {
+                padding: 1.5rem;
+            }
+            .fontes-container h4 {
+                font-size: 1.6rem;
+            }
+            .fontes-container a {
+                font-size: 1rem;
+            }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="popup-notification-container" class="popup-notification">
+    </div>
+
+    <nav class="bg-gray-800 text-white py-4 shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
+            <h1 class="text-2xl font-bold text-blue-300">Período de Defeso</h1>
+            <ul class="nav-links flex flex-col md:flex-row gap-4 mt-4 md:mt-0">
+                <li><a href="index.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="regras.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="denuncia.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Denúncia</a></li>
+                <li><a href="direitos.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="educacao.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="contato.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="admin-button-container">
+        <a href="admin_simulacoes.php" class="admin-button"><i class="bi bi-shield-lock-fill"></i> Área do Administrador</a>
+    </div>
+
+    <section class="content-container">
+        <h2>Direitos do Pescador no Período de Defeso</h2>
+        <p>O período de defeso é uma medida fundamental para a sustentabilidade dos recursos pesqueiros, garantindo que as espécies se reproduzam e que o ecossistema aquático se mantenha saudável. Para os pescadores artesanais, esse período é crucial e, por isso, o governo oferece o benefício do Seguro-Defeso, que visa assegurar a subsistência durante a paralisação da pesca.</p>
+
+        <h3>Quem tem direito?</h3>
+        <ul class="list-disc pl-6">
+            <li>Pescadores e pescadoras artesanais que possuem inscrição ativa no Registro Geral da Atividade Pesqueira (RGP) há pelo menos um ano.</li>
+            <li>Comprovação de exercício da atividade pesqueira de forma exclusiva e ininterrupta nos últimos 12 meses anteriores à solicitação do benefício.</li>
+            <li>Não ter vínculo empregatício de qualquer natureza ou outra fonte de renda formal (exceto pensão por morte ou auxílio-acidente).</li>
+            <li>Não estar recebendo nenhum outro benefício da Previdência Social ou da assistência social (como aposentadoria, auxílio-doença, BPC, etc.).</li>
+        </ul>
+
+        <h3>Valor do Benefício</h3>
+        <p>O valor do Seguro-Defeso é equivalente a um salário mínimo mensal, pago durante o período de defeso da espécie que o pescador captura. A quantidade de parcelas (geralmente de 3 a 5 meses) varia de acordo com a duração do defeso estabelecido para cada espécie e região.</p>
+
+        <h3>Documentação Necessária</h3>
+        <ul class="list-disc pl-6">
+            <li>Comprovante de inscrição e situação regular no Registro Geral da Pesca (RGP).</li>
+            <li>Declaração de pescador artesanal, emitida por entidade representativa.</li>
+            <li>Documento de identidade oficial com foto (RG, CNH, CTPS) e CPF.</li>
+            <li>Comprovante de residência atualizado.</li>
+            <li>Comprovantes da atividade pesqueira nos últimos 12 meses (notas fiscais de venda de pescado, comprovantes de recolhimento de contribuição previdenciária, etc.).</li>
+        </ul>
+
+        <h3>Fontes Oficiais</h3>
+        <ul class="list-disc pl-6">
+            <li><a href="https://www.gov.br/mte/pt-br/assuntos/pesca" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium transition duration-300 ease-in-out"><i class="bi bi-link-45deg"></i> Ministério do Trabalho e Emprego - MTE</a></li>
+            <li><a href="https://www.inss.gov.br/beneficios/seguro-defeso/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium transition duration-300 ease-in-out"><i class="bi bi-link-45deg"></i> INSS - Seguro Defeso</a></li>
+        </ul>
+    </section>
+
+    <section class="content-container">
+        <h3>Importância do Defeso para o Pescador</h3>
+        <p>Além de ser uma medida de proteção ambiental, o período de defeso é um aliado do pescador. Ao permitir que as espécies se reproduzam e cresçam, garante-se a sustentabilidade da pesca a longo prazo, assegurando que haverá peixe para as futuras gerações e, consequentemente, a continuidade da atividade pesqueira como fonte de sustento.</p>
+        <p>O benefício financeiro do Seguro-Defeso é fundamental para que o pescador artesanal não precise recorrer à pesca predatória ou a outras atividades ilegais para sobreviver durante o período de paralisação, fortalecendo a cadeia produtiva e a conservação ambiental.</p>
+    </section>
+
+    <div class="video-container">
+        <h3>Assista e Aprenda</h3>
+        <iframe src="https://www.youtube.com/embed/J9MQKZ1UlgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="curiosidades">
+        <h3>Curiosidades sobre o Defeso</h3>
+        <ul class="list-none pl-0">
+            <li>A pesca ilegal pode causar colapsos em cadeias alimentares marinhas, afetando não só as espécies-alvo, mas todo o ecossistema.</li>
+            <li>Peixes em período de defeso estão em sua fase mais vulnerável, dedicando-se à reprodução e garantindo a continuidade da espécie para os próximos ciclos.</li>
+            <li>O Seguro-Defeso é uma forma de valorizar o trabalho do pescador artesanal e reconhecer seu papel fundamental na conservação ambiental.</li>
+        </ul>
+    </div>
+
+    <section class="faq">
+        <h3>Perguntas Frequentes</h3>
+        <details class="mb-4">
+            <summary>Como solicitar o Seguro-Defeso?</summary>
+            <p>A solicitação pode ser feita de forma online, pelo aplicativo ou site "Meu INSS". É importante ter todos os dados atualizados e os documentos exigidos em mãos para agilizar o processo.</p>
+        </details>
+        <details class="mb-4">
+            <summary>Posso trabalhar em outra atividade durante o defeso?</summary>
+            <p>Não. Para ter direito ao Seguro-Defeso, o pescador não pode ter vínculo empregatício ou outra fonte de renda formal durante o período de paralisação da pesca, exceto pensão por morte ou auxílio-acidente.</p>
+        </details>
+        <details class="mb-4">
+            <summary>Quantas parcelas do Seguro-Defeso recebo?</summary>
+            <p>O número de parcelas varia de 3 a 5 meses, dependendo da duração do período de defeso estabelecido para a espécie e a região onde o pescador atua.</p>
+        </details>
+        <details class="mb-4">
+            <summary>O que acontece se eu pescar durante o defeso?</summary>
+            <p>A pesca ilegal durante o defeso é crime ambiental e pode resultar em multas pesadas, apreensão de equipamentos e do pescado, além de processos judiciais. É fundamental respeitar as regras para evitar sanções e contribuir com a conservação.</p>
+        </details>
+    </section>
+
+    <section class="content-container">
+        <h3>Simule seu Direito ao Seguro-Defeso</h3>
+        <p class="text-center text-gray-700 mb-6">Preencha o formulário abaixo para ter uma ideia se você se enquadra nos critérios para receber o Seguro-Defeso. Esta é uma simulação e não garante o benefício.</p>
+        <form action="processa_simulador.php" method="post">
+            <label for="nome">Seu nome:</label>
+            <input type="text" name="nome" id="nome" required class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+            <label for="email" class="mt-4">Seu e-mail:</label>
+            <input type="email" name="email" id="email" required class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+            <label class="mt-4">1. Você exerce a atividade pesqueira de forma ininterrupta?</label>
+            <div class="flex gap-4 mt-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q1" value="Sim" required class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Sim</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q1" value="Não" class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Não</span>
+                </label>
+            </div>
+
+            <label class="mt-4">2. Está inscrito no RGP há pelo menos 1 ano?</label>
+            <div class="flex gap-4 mt-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q2" value="Sim" required class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Sim</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q2" value="Não" class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Não</span>
+                </label>
+            </div>
+
+            <label class="mt-4">3. Comprovou a contribuição previdenciária nos últimos 12 meses?</label>
+            <div class="flex gap-4 mt-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q3" value="Sim" required class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Sim</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q3" value="Não" class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Não</span>
+                </label>
+            </div>
+
+            <label class="mt-4">4. Você não recebe outro benefício (exceto pensão ou auxílio-acidente)?</label>
+            <div class="flex gap-4 mt-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q4" value="Sim" required class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Sim</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q4" value="Não" class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Não</span>
+                </label>
+            </div>
+
+            <label class="mt-4">5. Você não possui outra fonte de renda?</label>
+            <div class="flex gap-4 mt-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q5" value="Sim" required class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Sim</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q5" value="Não" class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Não</span>
+                </label>
+            </div>
+
+            <label class="mt-4">6. Vai pedir o benefício dentro do prazo correto?</label>
+            <div class="flex gap-4 mt-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q6" value="Sim" required class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Sim</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="q6" value="Não" class="form-radio text-blue-600" />
+                    <span class="ml-2 text-gray-700">Não</span>
+                </label>
+            </div>
+
+            <button type="submit" class="mt-6">Verificar Direito</button>
+        </form>
+    </section>
+
+    <div class="fontes-container">
+        <h4>Fontes:</h4>
+        <a href="https://www.ibama.gov.br/" target="_blank">IBAMA</a>
+        <a href="https://www.icmbio.gov.br/" target="_blank">ICMBio</a>
+        <a href="https://www.mma.gov.br/" target="_blank">Ministério do Meio Ambiente</a>
+        <a href="https://www.oceanconservancy.org/" target="_blank">Ocean Conservancy</a>
+    </div>
+
+    <section class="atalhos">
+        <div class="atalho"><a href="simulador.html"><i class="bi bi-clipboard-check"></i> Simulador de Benefício</a></div>
+        <div class="atalho"><a href="regras.html"><i class="bi bi-journal-text"></i> Regras do Defeso</a></div>
+        <div class="atalho"><a href="contato.html"><i class="bi bi-envelope"></i> Órgãos Responsáveis</a></div>
+    </section>
+
+    <footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+        <p class="text-sm opacity-80">© 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const mensagem = urlParams.get('mensagem');
+            const notificationContainer = document.getElementById('popup-notification-container');
+
+            if (status && mensagem) {
+                notificationContainer.textContent = decodeURIComponent(mensagem);
+                notificationContainer.className = `popup-notification show ${status}`; // Adiciona 'sucesso' ou 'erro'
+                setTimeout(() => {
+                    notificationContainer.classList.remove('show');
+                    setTimeout(() => {
+                        notificationContainer.textContent = '';
+                    }, 500); // Tempo da transição de opacidade
+                }, 3000); // Tempo em milissegundos que a mensagem ficará visível (3 segundos)
+                // Limpa os parâmetros da URL para que o popup não apareça novamente ao recarregar
+                history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+</body>
+</html>

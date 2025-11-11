@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Educação Ambiental</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+        /* Define a fonte Inter para todo o corpo do documento e cores base */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #F8FAFC; /* Um cinza muito claro para o fundo */
+            color: #334155; /* Cor de texto padrão, um cinza escuro */
+        }
+
+        /* Estilo base para todos os blocos de conteúdo principais (content-container, quiz-container, pesquisa-form-container) */
+        .section-block {
+            max-width: 900px;
+            margin: 2.5rem auto; /* Margem consistente para centralizar */
+            padding: 2.5rem; /* Padding consistente */
+            background-color: #FFFFFF; /* Fundo padrão, pode ser sobrescrito */
+            border-radius: 1.25rem; /* Bordas arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra suave e pronunciada */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transição para hover */
+        }
+
+        .section-block:hover {
+            transform: translateY(-5px); /* Leve levantamento no hover */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Sombra maior no hover */
+        }
+
+        /* Estilos específicos para cada tipo de bloco de conteúdo */
+        .content-container {
+            /* Herda a maioria dos estilos de .section-block */
+            /* Não precisa de background específico, usa o padrão branco */
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, #E0F2F7 0%, #D1EEF5 100%); /* Gradiente suave para o quiz */
+        }
+
+        .pesquisa-form-container {
+            background: linear-gradient(135deg, #F0F9FF 0%, #E6F7FF 100%); /* Gradiente suave para o formulário de pesquisa */
+        }
+
+        /* Estilos de títulos e parágrafos dentro dos blocos de conteúdo */
+        .section-block h2 {
+            font-size: 2.8rem; /* Título maior */
+            margin-bottom: 1.5rem;
+            color: #1E293B;
+            font-weight: 800; /* Mais negrito */
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Sombra de texto sutil */
+        }
+
+        .section-block h3 {
+            font-size: 2rem; /* Subtítulo maior */
+            margin-top: 2.5rem; /* Mais espaçamento */
+            margin-bottom: 1rem;
+            color: #1E293B;
+            font-weight: 700; /* Mais negrito */
+            border-bottom: 2px solid #E2E8F0; /* Linha de separação sutil */
+            padding-bottom: 0.5rem;
+        }
+
+        .section-block p {
+            margin-bottom: 1rem;
+            color: #475569;
+            line-height: 1.7; /* Melhorar legibilidade */
+        }
+
+        .section-block ol,
+        .section-block ul {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: #475569;
+            list-style: disc; /* Garante que as listas tenham marcadores */
+        }
+
+        .section-block ol {
+            list-style: decimal; /* Garante que as listas ordenadas tenham números */
+        }
+
+        .section-block li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Estilo do botão de administrador */
+        .admin-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 2rem 0 0;
+        }
+
+        .admin-button {
+            background-color: #1E293B; /* Azul escuro */
+            color: #fff;
+            padding: 0.6rem 1.4rem;
+            border: none;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-button:hover {
+            background-color: #0F172A; /* Mais escuro no hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Estilo para a notificação popup (FORMATO CHAMATIVO) */
+        .popup-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #22C55E; /* Verde vibrante para sucesso */
+            color: white; /* Texto branco para contrastar */
+            padding: 1.2rem 2.5rem; /* Um pouco mais de padding */
+            border-radius: 8px; /* Bordas mais arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+            z-index: 1000;
+            opacity: 0; /* Inicialmente invisível */
+            transition: top 0.3s ease-out, opacity 0.3s ease-in-out; /* Transição suave para aparecer/desaparecer */
+            top: -50px; /* Começa um pouco acima */
+            font-weight: 600; /* Texto mais forte */
+        }
+        .popup-notification.show {
+            top: 20px; /* Desce para a posição visível */
+            opacity: 1;
+        }
+        .popup-notification.error {
+            background-color: #EF4444; /* Vermelho vibrante para erro */
+        }
+
+        /* Estilo do quiz container (sobrescreve .section-block para background) */
+        .quiz-container h3 {
+            font-size: 2.2rem; /* Título maior */
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .quiz-container p {
+            margin-bottom: 0.8rem;
+        }
+
+        .quiz-container label {
+            display: block; /* Garante que cada label ocupe sua própria linha */
+            margin-bottom: 0.5rem;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .quiz-container input[type="radio"] {
+            @apply form-radio text-blue-600;
+        }
+
+        .quiz-container button {
+            background-color: #4F46E5; /* Roxo vibrante para botões do quiz */
+            color: #FFFFFF;
+            padding: 0.8rem 1.2rem; /* Ajustado padding */
+            border: none;
+            border-radius: 0.75rem; /* Bordas mais arredondadas */
+            cursor: pointer;
+            font-size: 1rem; /* Texto maior */
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-container button:hover {
+            background-color: #4338CA;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .quiz-container #quiz-result {
+            margin-top: 1.5rem; /* Mais espaçamento */
+            font-weight: 600; /* Mais negrito */
+            font-size: 1.1rem; /* Texto maior */
+        }
+
+        /* Estilo para o formulário de pesquisa (sobrescreve .section-block para background) */
+        .pesquisa-form-container h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: #1E293B;
+            font-weight: 800;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .pesquisa-form-container p {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .pesquisa-form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pesquisa-form-container label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #334155;
+        }
+
+        .pesquisa-form-container input[type="text"],
+        .pesquisa-form-container select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #CBD5E1;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .pesquisa-form-container input[type="text"]:focus,
+        .pesquisa-form-container select:focus {
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            outline: none;
+        }
+
+        .pesquisa-form-container .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pesquisa-form-container .radio-group label {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .pesquisa-form-container .radio-group input[type="radio"] {
+            @apply form-radio text-blue-600;
+        }
+
+        .pesquisa-form-container button[type="submit"] {
+            background: linear-gradient(45deg, #3B82F6, #2563EB);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 1.5rem;
+        }
+
+        .pesquisa-form-container button[type="submit"]:hover {
+            background: linear-gradient(45deg, #2563EB, #1D4ED8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo para os atalhos (consistente com index.html) */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #E0F2F7; /* Fundo azul claro para os atalhos */
+            padding: 2rem 1rem;
+            gap: 1rem;
+            margin-top: 2rem;
+            border-radius: 1rem; /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .atalho a {
+            background-color: #FFFFFF;
+            color: #3B82F6; /* Azul vibrante */
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .atalho a:hover {
+            background-color: #3B82F6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .section-block { /* Aplica padding responsivo à classe base */
+                padding: 1.5rem;
+            }
+            .section-block h2, .pesquisa-form-container h2 {
+                font-size: 2rem;
+            }
+            .section-block h3 {
+                font-size: 1.5rem;
+            }
+            .quiz-container h3 {
+                font-size: 1.8rem;
+            }
+            .quiz-container button {
+                display: block;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="popup-notification-container" class="popup-notification">
+</div>
+
+<nav class="bg-gray-800 text-white py-4 shadow-lg">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
+        <h1 class="text-2xl font-bold text-blue-300">Período de Defeso</h1>
+        <ul class="nav-links flex flex-col md:flex-row gap-4 mt-4 md:mt-0">
+            <li><a href="index.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Home</a></li>
+            <li><a href="regras.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Regras</a></li>
+            <li><a href="denuncia.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Denúncia</a></li>
+            <li><a href="direitos.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+            <li><a href="educacao.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Educação</a></li>
+
+        </ul>
+    </div>
+</nav>
+
+<div class="admin-button-container">
+    <a href="admin_pesquisa.php" class="admin-button"><i class="bi bi-shield-lock-fill"></i> Área do Administrador</a>
+</div>
+
+<main class="mx-auto max-w-6xl px-4 py-8">
+    <section class="content-container section-block">
+        <h2>O que é o Defeso?</h2>
+        <p>
+            O período de defeso é uma medida de proteção à reprodução das espécies aquáticas. Durante esse tempo, atividades como a pesca são limitadas ou proibidas para preservar o ciclo natural dos peixes, garantindo a sustentabilidade dos estoques pesqueiros para as futuras gerações.
+        </p>
+    </section>
+
+    <section class="content-container section-block">
+        <h2>Importância da Educação Ambiental</h2>
+        <p>
+            A conscientização sobre o defeso é essencial para garantir a sustentabilidade dos recursos pesqueiros. Educar pescadores, estudantes e comunidades ribeirinhas contribui diretamente para a preservação ambiental, promovendo práticas de pesca responsável e o respeito aos ciclos naturais da vida aquática.
+        </p>
+    </section>
+
+    <section class="content-container section-block">
+        <h2>Leis e Regulamentos</h2>
+        <p>A legislação brasileira estabelece as diretrizes para o período de defeso, visando a proteção dos recursos pesqueiros. É fundamental conhecer e respeitar essas normas:</p>
+        <ul class="list-disc pl-6">
+            <li><strong>Lei nº 11.959/2009</strong> – Dispõe sobre a Política Nacional de Desenvolvimento Sustentável da Aquicultura e da Pesca.</li>
+            <li><strong>Instruções Normativas do IBAMA e do MAPA</strong> – Publicam anualmente os períodos de defeso específicos para cada espécie e região.</li>
+            <li><strong>Normas estaduais complementares</strong> – Alguns estados podem ter legislações adicionais. Consulte os órgãos ambientais locais para informações detalhadas.</li>
+        </ul>
+    </section>
+
+    <section class="content-container section-block" id="simulador-info">
+        <h2>Como se inscrever no benefício do defeso?</h2>
+        <p>
+            Para se cadastrar e receber o benefício do Seguro-Defeso, o pescador artesanal precisa reunir os seguintes documentos e cumprir os requisitos estabelecidos pelo INSS:
+        </p>
+        <ul class="list-disc pl-6">
+            <li>Registro Geral da Pesca (RGP) ativo e com pelo menos um ano de inscrição.</li>
+            <li>Comprovante de residência atualizado.</li>
+            <li>Declaração de atividade pesqueira emitida por colônia ou sindicato de pescadores.</li>
+            <li>Carteira de Trabalho com comprovação de atividade exclusiva na pesca e sem vínculo empregatício.</li>
+            <li>Não possuir outra fonte de renda formal ou benefício previdenciário (exceto pensão por morte ou auxílio-acidente).</li>
+        </ul>
+        <p class="mt-4">
+            A inscrição deve ser feita através do
+            <a href="https://www.gov.br/pt-br/servicos/requerer-o-seguro-defeso" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium transition duration-300 ease-in-out">site oficial do Governo Federal</a>, ou pelo aplicativo Meu INSS.
+        </p>
+        <p class="mt-4">
+            Modelos de documentos úteis:
+            <ul class="list-disc pl-6">
+                <li><a href="https://www.gov.br/pt-br/servicos/arquivos/seguro-defeso/modelo-de-declaracao.pdf" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium transition duration-300 ease-in-out">Modelo de Declaração de Atividade</a></li>
+                <li><a href="https://www.gov.br/pt-br/servicos/arquivos/seguro-defeso/requerimento-seguro-defeso.pdf" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium transition duration-300 ease-in-out">Requerimento de Seguro Defeso</a></li>
+            </ul>
+        </p>
+    </section>
+
+    <section class="quiz-container section-block" id="quiz">
+        <h3>Mini Quiz: Teste seus conhecimentos sobre o defeso!</h3>
+        <p>Responda às perguntas abaixo para testar o que você aprendeu:</p>
+        <form id="quiz-form">
+            <div class="quiz-question mb-4">
+                <p class="font-semibold"><strong>1. O que é o período de defeso?</strong></p>
+                <label class="block"><input type="radio" name="q1" value="a" class="form-radio text-blue-600"> Uma época de festa na pesca</label>
+                <label class="block"><input type="radio" name="q1" value="b" class="form-radio text-blue-600"> Época de proteção à reprodução de peixes</label>
+                <label class="block"><input type="radio" name="q1" value="c" class="form-radio text-blue-600"> Uma estação para pesca liberada</label>
+            </div>
+
+            <div class="quiz-question mb-4">
+                <p class="font-semibold"><strong>2. Qual órgão é responsável pelo controle do defeso?</strong></p>
+                <label class="block"><input type="radio" name="q2" value="a" class="form-radio text-blue-600"> INSS</label>
+                <label class="block"><input type="radio" name="q2" value="b" class="form-radio text-blue-600"> IBAMA</label>
+                <label class="block"><input type="radio" name="q2" value="c" class="form-radio text-blue-600"> MEC</label>
+            </div>
+
+            <button type="submit">Ver Resultado</button>
+
+            <div id="quiz-result" class="mt-4 font-bold text-lg"></div>
+        </form>
+    </section>
+</main>
+
+<section class="pesquisa-form-container section-block" id="pesquisa-form">
+    <h2>Pesquisa com Pescadores</h2>
+    <p>Ajude-nos a entender melhor sua realidade e contribuir para a melhoria das políticas de pesca e defeso respondendo às perguntas abaixo:</p>
+
+    <form action="processar_pesquisa.php" method="POST">
+        <label for="embarcacao">Qual o tipo de embarcação utilizada?</label>
+        <input type="text" name="embarcacao" id="embarcacao" required>
+
+        <label for="frequencia">Com qual frequência você pesca?</label>
+        <select name="frequencia" id="frequencia" required>
+            <option value="">Selecione</option>
+            <option value="Diariamente">Diariamente</option>
+            <option value="Semanalmente">Semanalmente</option>
+            <option value="Mensalmente">Mensalmente</option>
+            <option value="Raramente">Raramente</option>
+        </select>
+
+        <label>Pretende utilizar o benefício do seguro defeso futuramente?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="pretende_beneficio" value="Sim" required> Sim</label>
+            <label><input type="radio" name="pretende_beneficio" value="Não"> Não</label>
+        </div>
+
+        <label for="material">Qual material usado para a atividade pesqueira?</label>
+        <input type="text" name="material" id="material" required>
+
+        <label for="especies">Quais espécies são capturadas por você?</label>
+        <input type="text" name="especies" id="especies" required>
+
+        <label>Você está satisfeito com sua profissão?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="satisfacao" value="Sim" required> Sim</label>
+            <label><input type="radio" name="satisfacao" value="Não"> Não</label>
+        </div>
+
+        <button type="submit">Enviar Respostas</button>
+    </form>
+</section>
+
+<section class="atalhos">
+    <div class="atalho"><a href="simulador.html"><i class="bi bi-clipboard-plus"></i> Simulador de Inscrição</a></div>
+    <div class="atalho"><a href="educacao.html"><i class="bi bi-journal-richtext"></i> Educação Ambiental</a></div>
+    <div class="atalho"><a href="contato.html"><i class="bi bi-envelope"></i> Órgãos Responsáveis</a></div>
+</section>
+
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('quiz-form');
+        const result = document.getElementById('quiz-result');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let score = 0;
+
+            // Corrigindo a resposta correta para a pergunta 2: IBAMA é 'b'
+            if (form.q1.value === 'b') score++;
+            if (form.q2.value === 'b') score++; // IBAMA é a resposta correta para a pergunta 2
+
+            result.textContent = `Você acertou ${score} de 2 perguntas.`;
+            if (score === 2) {
+                result.classList.remove('text-red-500');
+                result.classList.add('text-green-600');
+            } else {
+                result.classList.remove('text-green-600');
+                result.classList.add('text-red-500');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const mensagem = urlParams.get('mensagem');
+        const notificationContainer = document.getElementById('popup-notification-container');
+
+        if (status && mensagem) {
+            notificationContainer.textContent = decodeURIComponent(mensagem);
+            notificationContainer.className = `popup-notification show ${status}`; // Adiciona 'sucesso' ou 'erro'
+            setTimeout(() => {
+                notificationContainer.classList.remove('show');
+                setTimeout(() => {
+                    notificationContainer.textContent = '';
+                }, 500); // Tempo da transição de opacidade
+            }, 3000); // Tempo em milissegundos que a mensagem ficará visível (3 segundos)
+            // Limpa os parâmetros da URL para que o popup não apareça novamente ao recarregar
+            history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
+</script>
+
+</body>
+</html>

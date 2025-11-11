@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regras do Defeso</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <style>
+        /* Define a fonte Inter para todo o corpo do documento e cores base */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #F8FAFC; /* Um cinza muito claro para o fundo */
+            color: #334155; /* Cor de texto padrão, um cinza escuro */
+        }
+
+        /* Estilos para o container principal do conteúdo */
+        .content-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2.5rem; /* Aumentado o padding */
+            background-color: #FFFFFF;
+            border-radius: 1.25rem; /* Bordas mais arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra mais pronunciada e suave */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transição para hover */
+        }
+
+        .content-container:hover {
+            transform: translateY(-5px); /* Leve levantamento no hover */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Sombra maior no hover */
+        }
+
+        .content-container h2 {
+            font-size: 2.8rem; /* Título maior */
+            margin-bottom: 1.5rem;
+            color: #1E293B;
+            font-weight: 800; /* Mais negrito */
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Sombra de texto sutil */
+        }
+
+        .content-container h3 {
+            font-size: 2rem; /* Subtítulo maior */
+            margin-top: 2.5rem; /* Mais espaçamento */
+            margin-bottom: 1rem;
+            color: #1E293B;
+            font-weight: 700; /* Mais negrito */
+            border-bottom: 2px solid #E2E8F0; /* Linha de separação sutil */
+            padding-bottom: 0.5rem;
+        }
+
+        .content-container p {
+            margin-bottom: 1rem;
+            color: #475569;
+            line-height: 1.7; /* Melhorar legibilidade */
+        }
+
+        .content-container ol,
+        .content-container ul {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: #475569;
+            list-style: disc; /* Garante que as listas tenham marcadores */
+        }
+
+        .content-container ol {
+            list-style: decimal; /* Garante que as listas ordenadas tenham números */
+        }
+
+        .content-container li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Estilo para a tabela de multas */
+        .tabela-multas {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            overflow: hidden; /* Garante que as bordas arredondadas sejam aplicadas */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra mais pronunciada */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .tabela-multas:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .tabela-multas th,
+        .tabela-multas td {
+            border: 1px solid #E2E8F0; /* Cor de borda mais suave */
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .tabela-multas th {
+            background-color: #0F172A; /* Azul escuro para o cabeçalho */
+            color: white;
+            font-weight: 600;
+        }
+
+        .tabela-multas tr:nth-child(even) {
+            background-color: #F8FAFC; /* Fundo mais claro para linhas pares */
+        }
+
+        .fonte-tabela {
+            font-size: 0.9rem;
+            color: #71717A;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        /* Estilo para o botão de ação */
+        .btn-acao {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .btn-acao:hover {
+            background-color: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo para a seção de notícias */
+        .noticias-piracema {
+            margin-top: 3rem;
+            padding: 2rem; /* Aumentado padding */
+            background: linear-gradient(135deg, #F0F9FF 0%, #E6F7FF 100%); /* Gradiente suave */
+            border-radius: 1.25rem; /* Bordas mais arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra mais pronunciada */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .noticias-piracema:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .noticias-piracema h3 {
+            color: #1E293B;
+            font-size: 2.2rem; /* Título maior */
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .noticia {
+            margin-bottom: 1rem;
+            padding: 1.25rem; /* Aumentado padding */
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.75rem; /* Bordas mais arredondadas */
+            transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .noticia:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra maior */
+            transform: translateY(-3px); /* Leve levantamento */
+        }
+
+        .noticia-conteudo h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: #3B82F6; /* Azul vibrante para títulos de notícias */
+            font-weight: 500;
+        }
+
+        .noticia-conteudo h4 a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .noticia-conteudo h4 a:hover {
+            color: #2563EB; /* Azul mais escuro no hover */
+        }
+
+        .noticia-conteudo p {
+            color: #71717A;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Estilo para o quiz container */
+        .quiz-container {
+            margin-top: 2.5rem; /* Mais espaçamento */
+            padding: 2rem; /* Aumentado padding */
+            background: linear-gradient(135deg, #E0F2F7 0%, #D1EEF5 100%); /* Gradiente suave */
+            border-radius: 1.25rem; /* Bordas mais arredondadas */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Sombra mais pronunciada */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .quiz-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .quiz-container h3 {
+            color: #1E293B;
+            font-size: 2.2rem; /* Título maior */
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .quiz-container p {
+            color: #475569;
+            margin-bottom: 0.8rem;
+        }
+
+        .quiz-container button {
+            background-color: #4F46E5; /* Roxo vibrante para botões do quiz */
+            color: #FFFFFF;
+            padding: 0.8rem 1.2rem; /* Ajustado padding */
+            border: none;
+            border-radius: 0.75rem; /* Bordas mais arredondadas */
+            cursor: pointer;
+            font-size: 1rem; /* Texto maior */
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-container button:hover {
+            background-color: #4338CA;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .quiz-container #resultado-quiz {
+            margin-top: 1.5rem; /* Mais espaçamento */
+            font-weight: 600; /* Mais negrito */
+            font-size: 1.1rem; /* Texto maior */
+        }
+
+        /* Estilos para os atalhos (consistente com index.html) */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #E0F2F7; /* Fundo azul claro para os atalhos */
+            padding: 2rem 1rem;
+            gap: 1rem;
+            margin-top: 2rem;
+            border-radius: 1rem; /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .atalho a {
+            background-color: #FFFFFF;
+            color: #3B82F6; /* Azul vibrante */
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem; /* Bordas arredondadas */
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .atalho a:hover {
+            background-color: #3B82F6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4x 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .content-container {
+                margin: 1.5rem auto;
+                padding: 1.5rem;
+            }
+            .content-container h2 {
+                font-size: 2rem;
+            }
+            .content-container h3 {
+                font-size: 1.5rem;
+            }
+            .tabela-multas th,
+            .tabela-multas td {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+            .noticias-piracema h3 {
+                font-size: 1.6rem;
+            }
+            .noticia-conteudo h4 {
+                font-size: 1rem;
+            }
+            .quiz-container h3 {
+                font-size: 1.4rem;
+            }
+            .quiz-container button {
+                display: block;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            .atalhos {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="regras-page">
+    <nav class="bg-gray-800 text-white py-4 shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
+            <h1 class="text-2xl font-bold text-blue-300">Período de Defeso</h1>
+            <ul class="nav-links flex flex-col md:flex-row gap-4 mt-4 md:mt-0">
+                <li><a href="index.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Home</a></li>
+                <li><a href="regras.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Regras</a></li>
+                <li><a href="denuncia.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Denúncia</a></li>
+                <li><a href="direitos.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+                <li><a href="educacao.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Educação</a></li>
+                <li><a href="contato.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-container">
+        <h2>Regras do Período de Defeso</h2>
+        <p>O período de defeso é essencial para a preservação das espécies marinhas e a recuperação dos ecossistemas aquáticos. Durante esse período, é proibido pescar em determinadas áreas e em determinadas épocas para garantir que as espécies não sejam ameaçadas de extinção.</p>
+
+        <h3>Regras Gerais</h3>
+        <p>As principais regras durante o período de defeso incluem a suspensão da pesca de determinadas espécies, com o objetivo de evitar a sobrepesca. Abaixo estão algumas das principais diretrizes:</p>
+        <ol>
+            <li>É proibido pescar determinadas espécies de peixes e moluscos durante o período de defeso.</li>
+            <li>A pesca pode ser permitida apenas em áreas específicas e com licenciamento autorizado.</li>
+            <li>Multas pesadas serão aplicadas àqueles que desrespeitarem as leis do defeso.</li>
+            <li>O período de defeso varia de acordo com a espécie e a localidade.</li>
+        </ol>
+
+        <h3>Legislação e Penalidades</h3>
+        <p>A legislação que regulamenta o defeso é estabelecida por diversos órgãos ambientais, incluindo o IBAMA e o ICMBio. O descumprimento das regras pode resultar em:</p>
+        <ul>
+            <li>Multas que podem chegar a R$ 50.000,00, dependendo da infração.</li>
+            <li>Perda de licenciamento para atividades pesqueiras.</li>
+            <li>Processos judiciais e apreensão de embarcações e equipamentos pesqueiros.</li>
+        </ul>
+
+        <h3>Tabela de Multas Comuns</h3>
+        <table class="tabela-multas">
+            <thead>
+                <tr>
+                    <th>Infração</th>
+                    <th>Multa (R$)</th>
+                    <th>Penalidade Adicional</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pesca sem licença durante o defeso</td>
+                    <td>5.000,00</td>
+                    <td>Apreensão dos equipamentos</td>
+                </tr>
+                <tr>
+                    <td>Pesca de espécie proibida</td>
+                    <td>10.000,00</td>
+                    <td>Processo judicial</td>
+                </tr>
+                <tr>
+                <td>Uso de redes ilegais</td>
+                <td>3.000,00</td>
+                <td>Suspensão do direito de pesca</td>
+                </tr>
+                <tr>
+                    <td>Descarte irregular de resíduos</td>
+                    <td>2.000,00</td>
+                    <td>Notificação ambiental</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="fonte-tabela">Fonte: Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis (IBAMA), com base na Instrução Normativa n.º 185/2008 e normas complementares.</p>
+
+        <h3>Exceções e Autorizações Especiais</h3>
+        <p>Em algumas situações, pode ser permitida a pesca de determinadas espécies durante o defeso, desde que o pescador obtenha uma autorização especial. As condições para essa autorização devem ser verificadas diretamente com os órgãos responsáveis.</p>
+
+        <a href="denuncia.html" class="btn-acao"><i class="bi bi-exclamation-circle"></i> Denunciar Pesca Ilegal</a>
+
+        <section class="noticias-piracema">
+            <h3>Notícias sobre a Piracema e o Período de Defeso no Maranhão</h3>
+            <div class="noticia">
+                <div class="noticia-conteudo">
+                    <h4><a href="https://saobeneditodoriopreto.ma.gov.br/operacao-piracema-2025-prefeitura-de-sao-benedito-do-rio-preto-intensifica-fiscalizacao-contra-pesca-irregular/" target="_blank">Operação Piracema 2025 em São Benedito do Rio Preto</a></h4>
+                    <p>A Prefeitura de São Benedito do Rio Preto iniciou a Operação Piracema 2025, que visa combater a pesca ilegal durante o período de defeso. Saiba mais sobre as ações de fiscalização e como colaborar.</p>
+                </div>
+            </div>
+
+            <div class="noticia">
+                <div class="noticia-conteudo">
+                    <h4><a href="https://www.instagram.com/prefeituradecolinasma/reel/DFNkfALu9FV/?hl=en" target="_blank">Início da Piracema em Colinas – MA</a></h4>
+                    <p>A Prefeitura de Colinas anunciou o início da piracema, destacando as regras e a importância da preservação das espécies. Confira as medidas que devem ser seguidas neste período.</p>
+                </div>
+            </div>
+
+            <div class="noticia">
+                <div class="noticia-conteudo">
+                    <h4><a href="https://www.mpma.mp.br/noticia-perrodo-da-piracema-no-maranhro/" target="_blank">Período de Defeso no Maranhão</a></h4>
+                    <p>O Ministério Público do Maranhão divulgou informações sobre o período de defeso, abordando as espécies que precisam ser protegidas e as regras que devem ser seguidas pelos pescadores.</p>
+                </div>
+            </div>
+
+            <div class="noticia">
+                <div class="noticia-conteudo">
+                    <h4><a href="https://www.itinga.ma.gov.br/informa/109/chegou-a-piracema-respeite-a-natureza-de-01-de-nov" target="_blank">Chegada da Piracema em Itinga do Maranhão</a></h4>
+                    <p>A Prefeitura de Itinga do Maranhão alertou a população sobre o início da piracema, com o objetivo de combater a pesca ilegal. Veja como contribuir para a preservação durante esse período.</p>
+                </div>
+            </div>
+
+            <div class="noticia">
+                <div class="noticia-conteudo">
+                    <h4><a href="https://genyo.com.br/seguro-defeso/" target="_blank">Seguro-Defeso 2025: Informações e Calendário</a></h4>
+                    <p>Saiba tudo sobre o Seguro-Defeso 2025, quem tem direito ao benefício, os valores pagos e o calendário de pagamentos para os pescadores artesanais durante o período de defeso.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="quiz-container">
+            <h3>Mini Quiz: Você entendeu as regras?</h3>
+            <p><strong>1.</strong> É permitido pescar qualquer espécie durante o defeso se for com vara de pesca?</p>
+            <button onclick="verificarResposta(1, 'a')">a) Sim, sempre</button>
+            <button onclick="verificarResposta(1, 'b')">b) Não, apenas com autorização especial</button>
+            <button onclick="verificarResposta(1, 'c')">c) Sim, desde que longe da costa</button>
+
+            <p class="mt-4"><strong>2.</strong> Quem fiscaliza as regras do defeso?</p>
+            <button onclick="verificarResposta(2, 'a')">a) IBAMA e ICMBio</button>
+            <button onclick="verificarResposta(2, 'b')">b) Polícia Federal</button>
+            <button onclick="verificarResposta(2, 'c')">c) Marinha</button>
+
+            <p id="resultado-quiz" class="mt-4"></p>
+        </div>
+    </section>
+
+    <section class="atalhos">
+        <div class="atalho"><a href="simulador.html"><i class="bi bi-clipboard-plus"></i> Simulador de Inscrição</a></div>
+        <div class="atalho"><a href="educacao.html"><i class="bi bi-journal-richtext"></i> Educação Ambiental</a></div>
+        <div class="atalho"><a href="contato.html"><i class="bi bi-envelope"></i> Órgãos Responsáveis</a></div>
+    </section>
+
+    <footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+        <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA</p>
+    </footer>
+
+    <script>
+        function verificarResposta(pergunta, alternativa) {
+            const corretas = {
+                1: 'b',
+                2: 'a'
+            };
+
+            let resultado = document.getElementById("resultado-quiz");
+
+            if (alternativa === corretas[pergunta]) {
+                resultado.textContent = "✅ Resposta correta!";
+                resultado.classList.remove('text-red-500');
+                resultado.classList.add('text-green-600');
+            } else {
+                resultado.textContent = "❌ Resposta incorreta. Tente novamente.";
+                resultado.classList.remove('text-green-600');
+                resultado.classList.add('text-red-500');
+            }
+        }
+    </script>
+</body>
+</html>

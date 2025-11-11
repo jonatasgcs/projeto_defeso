@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fale Conosco - Período de Defeso</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <style>
+        /* Define a fonte Inter para todo o corpo do documento e cores base */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #F8FAFC; /* Um cinza muito claro para o fundo */
+            color: #334155; /* Cor de texto padrão, um cinza escuro */
+        }
+
+        /* Estilo base para todos os blocos de conteúdo principais (content-container, orgao, contact-form-container) */
+        .section-block {
+            max-width: 900px;
+            margin: 2rem auto; /* Diminuído de 2.5rem para 2rem */
+            padding: 2rem; /* Diminuído de 2.5rem para 2rem */
+            background-color: #FFFFFF; /* Fundo padrão, pode ser sobrescrito */
+            border-radius: 1rem; /* Diminuído de 1.25rem para 1rem */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07); /* Sombra ligeiramente menor */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transição para hover */
+        }
+
+        .section-block:hover {
+            transform: translateY(-4px); /* Leve levantamento no hover */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra maior no hover */
+        }
+
+        /* Estilos específicos para cada tipo de bloco de conteúdo */
+        .orgao-item { /* Nova classe para os blocos de órgão */
+            background-color: #F0F9FF; /* Fundo suave para os órgãos */
+            border-left: 5px solid #3B82F6; /* Borda lateral azul vibrante */
+            padding: 1.25rem; /* Diminuído de 1.5rem para 1.25rem */
+            margin-bottom: 1.25rem; /* Diminuído de 1.5rem para 1.25rem */
+            border-radius: 0.625rem; /* Diminuído de 0.75rem para 0.625rem */
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04); /* Sombra sutil */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .orgao-item:hover {
+            transform: translateY(-2px); /* Leve levantamento no hover */
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08); /* Sombra maior */
+        }
+
+        .contact-form-container { /* Nova classe para o formulário de feedback */
+            background: linear-gradient(135deg, #E0F2F7 0%, #D1EEF5 100%); /* Gradiente suave para o formulário */
+        }
+
+        /* Estilos de títulos e parágrafos dentro dos blocos de conteúdo */
+        .main-content-title { /* Título principal da página */
+            font-size: 2.5rem; /* Diminuído de 2.8rem para 2.5rem */
+            margin-bottom: 1.25rem; /* Diminuído de 1.5rem para 1.25rem */
+            color: #1E293B;
+            font-weight: 800;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .section-block h2 { /* Títulos de seção dentro dos blocos */
+            font-size: 2rem; /* Diminuído de 2.2rem para 2rem */
+            margin-top: 2rem; /* Diminuído de 2.5rem para 2rem */
+            margin-bottom: 0.8rem; /* Diminuído de 1.5rem para 0.8rem */
+            color: #1E293B;
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #E2E8F0; /* Linha de separação sutil */
+            padding-bottom: 0.4rem; /* Diminuído de 0.5rem para 0.4rem */
+        }
+
+        .orgao-item h2 { /* Títulos dos órgãos */
+            font-size: 1.6rem; /* Diminuído de 1.8rem para 1.6rem */
+            color: #3B82F6;
+            margin-bottom: 0.6rem; /* Diminuído de 0.75rem para 0.6rem */
+            font-weight: 600;
+            border-bottom: none;
+            padding-bottom: 0;
+            text-align: left;
+        }
+
+        .section-block p {
+            margin-bottom: 0.8rem; /* Diminuído de 1rem para 0.8rem */
+            color: #475569;
+            line-height: 1.6; /* Diminuído de 1.7 para 1.6 */
+        }
+
+        .orgao-item p {
+            color: #475569;
+            margin-bottom: 0.4rem; /* Diminuído de 0.5rem para 0.4rem */
+        }
+
+        .orgao-item a {
+            color: #3B82F6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .orgao-item a:hover {
+            color: #2563EB;
+            text-decoration: underline;
+        }
+
+        /* Estilo do formulário de feedback */
+        .contact-form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem; /* Diminuído de 1rem para 0.8rem */
+        }
+
+        .contact-form-container label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.2rem; /* Diminuído de 0.25rem para 0.2rem */
+            color: #334155;
+        }
+
+        .contact-form-container input[type="text"],
+        .contact-form-container input[type="email"],
+        .contact-form-container textarea {
+            width: 100%;
+            padding: 0.6rem; /* Diminuído de 0.75rem para 0.6rem */
+            border: 1px solid #CBD5E1;
+            border-radius: 0.4rem; /* Diminuído de 0.5rem para 0.4rem */
+            transition: all 0.2s ease-in-out;
+            color: #334155;
+        }
+
+        .contact-form-container input[type="text"]:focus,
+        .contact-form-container input[type="email"]:focus,
+        .contact-form-container textarea:focus {
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); /* Sombra de foco menor */
+            outline: none;
+        }
+
+        .contact-form-container button[type="submit"] {
+            background: linear-gradient(45deg, #3B82F6, #2563EB);
+            color: white;
+            padding: 0.7rem 1.2rem; /* Diminuído de 0.8rem 1.5rem para 0.7rem 1.2rem */
+            border: none;
+            border-radius: 0.6rem; /* Diminuído de 0.75rem para 0.6rem */
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em; /* Diminuído de 1.1rem para 1em */
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08); /* Sombra menor */
+            margin-top: 1.25rem; /* Diminuído de 1.5rem para 1.25rem */
+        }
+
+        .contact-form-container button[type="submit"]:hover {
+            background: linear-gradient(45deg, #2563EB, #1D4ED8);
+            transform: translateY(-1px); /* Leve levantamento */
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Estilo do botão de administrador */
+        .admin-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0.8rem 1.5rem 0 0; /* Diminuído margens */
+        }
+
+        .admin-button {
+            background-color: #1E293B;
+            color: #fff;
+            padding: 0.5rem 1.2rem; /* Diminuído padding */
+            border: none;
+            border-radius: 0.6rem; /* Diminuído border-radius */
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Sombra menor */
+        }
+
+        .admin-button:hover {
+            background-color: #0F172A;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Estilo para a notificação popup */
+        .popup-notification {
+            position: fixed;
+            top: 15px; /* Diminuído de 20px para 15px */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #22C55E;
+            color: white;
+            padding: 1rem 2rem; /* Diminuído padding */
+            border-radius: 6px; /* Diminuído border-radius */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Sombra menor */
+            z-index: 1000;
+            opacity: 0;
+            transition: top 0.3s ease-out, opacity 0.3s ease-in-out;
+            top: -40px; /* Diminuído de -50px para -40px */
+            font-weight: 600;
+        }
+        .popup-notification.show {
+            top: 15px;
+            opacity: 1;
+        }
+        .popup-notification.error {
+            background-color: #EF4444;
+        }
+
+        /* Estilo para os atalhos (consistente com index.html) */
+        .atalhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #E0F2F7;
+            padding: 1.5rem 0.8rem; /* Diminuído padding */
+            gap: 0.8rem; /* Diminuído gap */
+            margin-top: 1.5rem; /* Diminuído margin-top */
+            border-radius: 0.8rem; /* Diminuído border-radius */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04); /* Sombra menor */
+        }
+
+        .atalho a {
+            background-color: #FFFFFF;
+            color: #3B82F6;
+            border: none;
+            padding: 0.8rem 1.2rem; /* Diminuído padding */
+            border-radius: 0.6rem; /* Diminuído border-radius */
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Sombra menor */
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem; /* Diminuído gap */
+            transition: all 0.3s ease;
+        }
+
+        .atalho a:hover {
+            background-color: #3B82F6;
+            color: #ffffff;
+            transform: translateY(-1px); /* Leve levantamento */
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12); /* Sombra maior */
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .section-block {
+                padding: 1.25rem; /* Diminuído padding responsivo */
+            }
+            .main-content-title, .section-block h2 {
+                font-size: 1.8rem; /* Diminuído font-size */
+            }
+            .section-block h3 {
+                font-size: 1.3rem; /* Diminuído font-size */
+            }
+            .orgao-item h2 {
+                font-size: 1.2rem; /* Diminuído font-size */
+            }
+            .contact-form-container h2 {
+                font-size: 1.6rem; /* Diminuído font-size */
+            }
+            .admin-button-container {
+                margin: 0.8rem 0.8rem 0 0; /* Diminuído margens */
+            }
+            .atalhos {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1.25rem;
+            }
+            .atalho a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="popup-notification-container" class="popup-notification">
+</div>
+
+<nav class="bg-gray-800 text-white py-4 shadow-lg">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
+        <h1 class="text-2xl font-bold text-blue-300">Período de Defeso</h1>
+        <ul class="nav-links flex flex-col md:flex-row gap-4 mt-4 md:mt-0">
+            <li><a href="index.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Home</a></li>
+            <li><a href="regras.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Regras</a></li>
+            <li><a href="denuncia.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Denúncia</a></li>
+            <li><a href="direitos.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Direitos</a></li>
+            <li><a href="educacao.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Educação</a></li>
+            <li><a href="contato.html" class="text-blue-200 hover:text-blue-500 transition duration-300 ease-in-out font-medium">Contato</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="admin-button-container">
+    <a href="admin_feedback.php" class="admin-button"><i class="bi bi-shield-lock-fill"></i> Área do Administrador</a>
+</div>
+
+<main class="mx-auto max-w-6xl px-4 py-8">
+    <h1 class="main-content-title">Fale Conosco</h1>
+    <p class="text-center text-gray-600 mb-8">Confira abaixo os canais de atendimento dos principais órgãos responsáveis pela fiscalização e regulamentação do período de defeso no Brasil, e deixe seu feedback para nós!</p>
+
+    <div class="orgao-item">
+        <h2>IBAMA (Instituto Brasileiro do Meio Ambiente)</h2>
+        <p>Responsável pela fiscalização ambiental e proteção da fauna aquática, o IBAMA é um dos principais órgãos para denúncias e informações sobre o defeso.</p>
+        <p><strong>Site:</strong> <a href="https://www.gov.br/ibama" target="_blank">https://www.gov.br/ibama</a></p>
+    </div>
+
+    <div class="orgao-item">
+        <h2>ICMBio (Instituto Chico Mendes de Conservação da Biodiversidade)</h2>
+        <p>Atua na conservação da biodiversidade e gestão de unidades de conservação, sendo também um canal importante para denúncias e informações sobre a fauna e flora protegidas.</p>
+        <p><strong>Site:</strong> <a href="https://www.gov.br/icmbio" target="_blank">https://www.gov.br/icmbio</a></p>
+    </div>
+
+    <div class="orgao-item">
+        <h2>MAPA (Ministério da Agricultura, Pecuária e Abastecimento)</h2>
+        <p>O MAPA regulamenta as atividades de pesca e define os períodos de defeso, sendo uma fonte oficial para as normativas e calendários.</p>
+        <p><strong>Site:</strong> <a href="https://www.gov.br/agricultura" target="_blank">https://www.gov.br/agricultura</a></p>
+    </div>
+
+    <section id="feedback" class="contact-form-container section-block">
+        <h2>Queremos ouvir você!</h2>
+        <p>Por favor, deixe seu feedback sobre nosso site. Sua opinião é muito importante para continuarmos melhorando:</p>
+
+        <form id="formFeedback">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+
+            <button type="submit">Enviar Feedback</button>
+
+            <div class="mensagem-feedback" id="mensagemFeedback"></div>
+        </form>
+    </section>
+</main>
+
+<section class="atalhos">
+    <div class="atalho">
+        <a href="simulador.html"><i class="bi bi-clipboard-plus"></i> Simulador de Inscrição</a>
+    </div>
+    <div class="atalho">
+        <a href="regras.html"><i class="bi bi-journal-text"></i> Regras do Defeso</a>
+    </div>
+    <div class="atalho">
+        <a href="contato.html"><i class="bi bi-envelope"></i> Órgãos Responsáveis</a>
+    </div>
+</section>
+
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm opacity-80">&copy; 2025 Projeto Interdisciplinar - Universidade CEUMA | Período de Defeso</p>
+</footer>
+
+<script>
+    // Função para exibir o popup
+    function showPopup(message, type) {
+        const notificationContainer = document.getElementById('popup-notification-container');
+        notificationContainer.textContent = message;
+        notificationContainer.className = `popup-notification show ${type}`; // Adiciona 'show' e 'sucesso'/'erro'
+        setTimeout(() => {
+            notificationContainer.classList.remove('show');
+            setTimeout(() => {
+                notificationContainer.textContent = ''; // Limpa o texto após a transição
+            }, 500); // Tempo da transição de opacidade
+        }, 3000); // Tempo em milissegundos que a mensagem ficará visível (3 segundos)
+    }
+
+    // Captura o evento de envio do formulário
+    document.getElementById('formFeedback').addEventListener('submit', function (e) {
+        e.preventDefault(); // Impede o envio tradicional
+
+        const formData = new FormData(this); // Cria objeto com os dados do formulário
+
+        // Envia os dados para o PHP via fetch
+        fetch('enviar_feedback.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Espera uma resposta JSON
+        })
+        .then(data => {
+            if (data.status === 'sucesso') {
+                showPopup(data.message, 'sucesso');
+                document.getElementById('formFeedback').reset(); // Limpa o formulário
+            } else {
+                showPopup(data.message, 'erro');
+            }
+        })
+        .catch(error => {
+            console.error('Erro no fetch:', error);
+            showPopup('Erro ao enviar o feedback. Tente novamente.', 'erro');
+        });
+    });
+
+    // Script para exibir popup baseado em URL (se houver)
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const mensagem = urlParams.get('mensagem');
+        const notificationContainer = document.getElementById('popup-notification-container');
+
+        if (status && mensagem) {
+            notificationContainer.textContent = decodeURIComponent(mensagem);
+            notificationContainer.className = `popup-notification show ${status}`; // Adiciona 'sucesso' ou 'erro'
+            setTimeout(() => {
+                notificationContainer.classList.remove('show');
+                setTimeout(() => {
+                    notificationContainer.textContent = '';
+                }, 500); // Tempo da transição de opacidade
+            }, 3000); // Tempo em milissegundos que a mensagem ficará visível (3 segundos)
+            // Limpa os parâmetros da URL para que o popup não apareça novamente ao recarregar
+            history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
+</script>
+
+</body>
+</html>
